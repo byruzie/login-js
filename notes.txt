@@ -1,0 +1,34 @@
+🟡 1. Projeto com Set: Sistema de Tags Únicas
+Uma mini interface onde o usuário pode digitar tags (como num formulário de blog) e o sistema impede tags repetidas.
+
+🧩 Por que usar Set?
+Set não permite valores duplicados.
+Perfeito para garantir que cada tag só apareça uma vez.
+
+🔵 2. Projeto com Map: Carrinho de Compras com Quantidade
+Um carrinho onde você adiciona produtos e suas quantidades são atualizadas se o mesmo item for adicionado de novo.
+
+🧩 Por que usar Map?
+Map permite usar a chave como o nome do produto e o valor como a quantidade.
+Permite buscar rapidamente, atualizar ou remover produtos.
+
+🟢 3. Projeto com Object: Cadastro de Usuário
+Você coleta informações como nome, idade e email e salva em um objeto.
+
+🧩 Por que usar Object?
+Objetos são ótimos para representar entidades com propriedades nomeadas.
+
+🔴 4. Projeto com Array: Lista de Tarefas (To-Do List)
+Crie uma lista de tarefas onde o usuário pode adicionar, remover e marcar como concluída.
+
+🧩 Por que usar Array?
+Arrays são ideais para armazenar listas ordenadas de dados.
+Você pode iterar, filtrar, mapear etc.
+
+🌟 Bônus: Projeto que usa todos juntos
+"Gerenciador de Eventos"
+
+Lista de eventos (Array)
+Cada evento tem detalhes (Object)
+Participantes únicos (Set)
+Lista de presença por ID (Map com id → presença)
