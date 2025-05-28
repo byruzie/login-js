@@ -1,4 +1,4 @@
-function submit(event) {
+function submit(event) { // função que dá submit quando apertam o botão de save
   const emailEl = document.getElementById("email");
   const passwordEl = document.getElementById("password");
   const confirmPasswordEl = document.getElementById("confirm-password");
@@ -9,7 +9,7 @@ function submit(event) {
 
   let alertPassword = document.getElementById("p-alert");
 
-  function createAlert() { 
+  function createAlert() { // cria elemento que avisa que as senhas não estão iguais 
     const alert = document.createElement("p");
     alert.textContent = "Passwords don't match";
     alert.id = "p-alert";
@@ -18,16 +18,16 @@ function submit(event) {
     return alert;
   }
 
-  function removeAlert() {
+  function removeAlert() { // remove o elemento de alerta
     if(alertPassword){
         formEl.removeChild(alertPassword);
-        alertPassword = null; // reset alertPassword value
+        alertPassword = null; // reseta o valor de alertPassword
     }
     passwordEl.classList.remove("border-red");
     confirmPasswordEl.classList.remove("border-red");
   }
 
-  if (password === confirmPassword) {
+  if (password === confirmPassword) { // cria uma condição que só salva quando as senhas são iguais
     removeAlert();
     console.log("as senhas são iguais");
   } else {

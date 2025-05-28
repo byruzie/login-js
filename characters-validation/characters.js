@@ -1,7 +1,3 @@
-// At least 8 characters long
-// Pending:
-// Funções: uma que abre a lista de condições ao clicar no input, uma que fecha a lista de condições ao clicar fora do input, uma que ao digitar verifica se tem as condições
-
 const passwordEl = document.getElementById("password");
 const passwordDiv = document.getElementById("password-container");
 
