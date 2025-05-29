@@ -1,4 +1,4 @@
-function submit(event) { // função que dá submit quando apertam o botão de save
+export function submit(event) { // função que dá submit quando apertam o botão de save
   const emailEl = document.getElementById("email");
   const passwordEl = document.getElementById("password");
   const confirmPasswordEl = document.getElementById("confirm-password");
@@ -42,6 +42,3 @@ function submit(event) { // função que dá submit quando apertam o botão de s
     console.log("as senhas não são iguais");
   }
 }
-
-const form = document.getElementById("form");
-form.addEventListener("submit", submit);
