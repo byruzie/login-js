@@ -46,19 +46,12 @@ function removeUl() {
   }
 }
 
-function createCondition(ul, conditionLabel, conditionId) { // cria uma condição
+function createCondition(ul, conditionLabel, conditionId) {
+  // cria uma condição
   const li = document.createElement("li");
   li.textContent = conditionLabel;
   li.id = conditionId;
   ul.appendChild(li);
-}
-
-function openConditions() {
-  // abre a lista de condições que a senha precisa ter apenas se não tiver uma aberta
-  let ul = document.getElementById("condition-list");
-  if (ul == null) {
-    createUl();
-  }
 }
 
 function closeConditions() {
@@ -72,8 +65,18 @@ function closeConditions() {
 function characterValidator() {
   // verifica se o que ta sendo digitado na senha cumpre com os requisitos dela
   const password = passwordEl.value;
+  let ul = document.getElementById("condition-list");
 
-  const conditionsContainer = document.getElementById("conditions-container");
+  const defaultListEl = document.getElementById("default-list");
+  const defaultExist = defaultListEl.classList.contains("inactive");
+  if (defaultExist == false) {
+    defaultListEl.classList.add("inactive");
+  }
+
+  // abre a lista de condições que a senha precisa ter apenas se não tiver uma aberta
+  if (ul == null) {
+    createUl();
+  }
 
   conditions.forEach((condition) => {
     const exist = document.getElementById(condition.id);
@@ -86,14 +89,39 @@ function characterValidator() {
       createCondition(ul, condition.label, condition.id);
     }
   });
+
+  const allConditionsMet = conditions.every(
+    (
+      condition // remove o elemento ul quando todas as condições forem atendidas
+    ) => condition.regex.test(password)
+  );
+  if (allConditionsMet && ul) {
+    removeUl();
+  }
+}
+
+function openConditionsList() {
+  const defaultListEl = document.getElementById("default-list");
+  const defaultExist = defaultListEl.classList.contains("inactive");
+  let ul = document.getElementById("condition-list");
+
+  if (ul == null) {
+    if (defaultExist) {
+      defaultListEl.classList.remove("inactive");
+    }
+  }
 }
 
 passwordEl.addEventListener("input", characterValidator);
-passwordEl.addEventListener("click", openConditions);
+passwordEl.addEventListener("click", openConditionsList);
 
 document.addEventListener("click", function (event) {
   // reconhece o clique de todo lugar menos o input password
   if (event.target.id !== "password") {
-    closeConditions();
+    const defaultListEl = document.getElementById("default-list");
+    const defaultExist = defaultListEl.classList.contains("inactive");
+    if (defaultExist == false) {
+      defaultListEl.classList.add("inactive");
+    }
   }
 });

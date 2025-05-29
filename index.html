@@ -7,32 +7,68 @@
     <title>Document</title>
   </head>
   <body>
-    <div class="container">
-      <form id="form">
-        <div class="form-div" id="form-div">
+    <div class="container" id="container">
+      <div class="sign-in" id="sign-in">
+        <form action="">
           <div>
-            <label>Cadastro</label>
-          </div>
+              <label>Sign In</label>
+            </div>
           <div>
-            <label for="">Email</label>
-            <input id="email" type="text" />
-          </div>
-          <div class="password-box">
-            <label for="">Password</label>
-            <div class="password-container" id="password-container">
-              <input id="password" type="password" />
+            <div>
+              <label for="">Email</label>
+              <input type="text" />
+            </div>
+            <div>
+              <label for="">Password</label>
+              <input type="password" />
             </div>
           </div>
-          <div class="password-box">
-            <label for="">Confirm Password</label>
-            <input id="confirm-password" type="password" />
+          <div class="link">
+            <p>Don't have an account?</p>
+            <p id="signin-link">Sign Up</p>
           </div>
-        </div>
-        <div>
-          <button type="submit" class="btn">Save</button>
-        </div>
-      </form>
+          <div>
+            <button type="submit" class="btn">Login</button>
+          </div>
+        </form>
+      </div>
+      <div class="sign-up inactive" id="sign-up">
+        <form id="form">
+          <div class="form-div" id="form-div">
+            <div>
+              <label>Sign Up</label>
+            </div>
+            <div>
+              <label for="">Email</label>
+              <input id="email" type="text" />
+            </div>
+            <div class="password-box">
+              <label for="">Password</label>
+              <div class="password-container" id="password-container">
+                <input id="password" type="password" />
+                <ul class="condition-list inactive" id="default-list">
+                  <li>At least 1 uppercase letter</li>
+                  <li>At least 1 lowercase letter</li>
+                  <li>At least 1 special character</li>
+                  <li>At least 1 number</li>
+                </ul>
+              </div>
+            </div>
+            <div class="password-box">
+              <label for="">Confirm Password</label>
+              <input id="confirm-password" type="password" />
+            </div>
+          </div>
+          <div class="link">
+            <p>Don't have an account?</p>
+            <p id="signup-link">Sign Up</p>
+          </div>
+          <div>
+            <button type="submit" class="btn">Sign Up</button>
+          </div>
+        </form>
+      </div>
     </div>
   </body>
-  <script src="../characters-validation/characters.js"></script>
+  <script src="./script.js"></script>
 </html>
