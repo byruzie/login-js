@@ -1,7 +1,7 @@
 // navegation.js
-import { changeDiv } from "./utils/navegation.js";
-import { characterValidator, openConditionsList } from "./utils/characters.js";
-import { submit } from "./utils/passwords.js";
+import { changeDiv } from "../utils/navegation.js";
+import { characterValidator, openConditionsList } from "../utils/characters.js";
+import { submit } from "../utils/passwords.js";
 
 const signInEl = document.getElementById("sign-in");
 const signUpEl = document.getElementById("sign-up");
