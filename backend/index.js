@@ -1,9 +1,13 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const port = 3000;
+
 const router = require("./routes/index");
 const connection = require("./db/connection");
 const tables = require("./db/tables");
+
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -16,5 +20,5 @@ app.listen(port, (error) => {
         console.log('deu erro');
         return
     }
-    console.log('subiu');
+    console.log(`Servidor rodando em http://localhost:${port}`);
 })
