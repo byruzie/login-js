@@ -27,6 +27,25 @@ class UserModel {
       });
     });
   }
+
+  verifyCredentials(email, password) {
+    const sql = "SELECT * FROM users WHERE email = ?";
+    return new Promise((resolve, reject) => {
+      connection.query(sql, [email], (err, results) => {
+        if (err) return reject(err);
+
+        if (results.length === 0) return resolve(null); // usuário não encontrado
+
+        const user = results[0];
+
+        if (user.password === password) {
+          resolve(user);
+        } else {
+          resolve(null); // senha incorreta
+        }
+      });
+    });
+  }
 }
 
 module.exports = new UserModel();
