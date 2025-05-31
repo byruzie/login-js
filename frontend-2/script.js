@@ -44,6 +44,66 @@ formIn.addEventListener("submit", async (e) => {
   }
 });
 
+// password rules 
+import {
+  validatePassword,
+  createConditionList,
+  updateConditionList,
+  toggleDefaultConditionList,
+} from "./utils/characters.js";
+
+const passwordEl = document.getElementById("password");
+const passwordDiv = document.getElementById("password-container");
+const defaultListEl = document.getElementById("default-list");
+
+const conditions = [
+  {
+    id: "condition-uppercase",
+    regex: /[A-Z]/,
+    label: "At least 1 uppercase letter",
+  },
+  {
+    id: "condition-lowercase",
+    regex: /[a-z]/,
+    label: "At least 1 lowercase letter",
+  },
+  {
+    id: "condition-special",
+    regex: /[!@#$%^&*(),.?":{}|<>]/,
+    label: "At least 1 special character",
+  },
+  {
+    id: "condition-number",
+    regex: /[0-9]/,
+    label: "At least 1 number",
+  },
+];
+
+// ativa/atualiza lista quando digita
+passwordEl.addEventListener("input", () => {
+  const conditionList = document.getElementById("condition-list");
+  const validationResults = validatePassword(passwordEl.value, conditions);
+
+  if (!conditionList) {
+    makeInvisible(defaultListEl);
+    createConditionList(passwordDiv, conditions);
+  }
+
+  updateConditionList(passwordDiv, validationResults);
+});
+
+// mostra lista padrão ao clicar no input
+passwordEl.addEventListener("click", () => {
+  toggleDefaultConditionList(passwordEl, defaultListEl, conditions);
+});
+
+// esconde lista padrão ao clicar fora do input
+document.addEventListener("click", (e) => {
+  if (e.target.id !== "password" && !defaultListEl.classList.contains("hidden")) {
+    makeInvisible(defaultListEl);
+  }
+});
+
 // form sign up
 const formUp = document.getElementById("signupForm");
 

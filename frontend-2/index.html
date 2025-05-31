@@ -9,7 +9,10 @@
   </head>
   <body>
     <div class="flex flex-col justify-center items-center h-screen">
-      <div id="welcome" class="w-[300px] h-[214px] hidden flex justify-center items-center gap-1 border">
+      <div
+        id="welcome"
+        class="w-[300px] h-[214px] hidden flex justify-center items-center gap-1 border"
+      >
         <p id="welcomeMessage"></p>
       </div>
       <div id="sign-in" class="w-[300px] h-[214px]">
@@ -23,7 +26,7 @@
                 name="email"
                 placeholder="Enter your email"
                 required
-                class="border pl-2 w-[100%]"
+                class="border pl-2 w-full"
               />
             </div>
             <div class="flex gap-2">
@@ -33,7 +36,7 @@
                 name="password"
                 placeholder="Enter your password"
                 required
-                class="border pl-2 w-[100%]"
+                class="border pl-2 w-full"
               />
             </div>
             <div class="flex gap-1">
@@ -44,7 +47,7 @@
           <button type="submit" class="border">Sign In</button>
         </form>
       </div>
-      <div id="sign-up" class="w-[300px] h-[214px] hidden">
+      <div id="sign-up" class="w-[300px] min-h-[214px] hidden">
         <form id="signupForm" class="h-full flex flex-col gap-2 border p-2">
           <label>Sign Up</label>
           <div class="flex gap-2">
@@ -54,7 +57,7 @@
               name="name"
               placeholder="Enter your name"
               required
-              class="border pl-2 w-[100%]"
+              class="border pl-2 w-full"
             />
           </div>
           <div class="flex gap-2">
@@ -69,13 +72,22 @@
           </div>
           <div class="flex gap-2">
             <label for="">Password</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="Enter your password"
-              required
-              class="border pl-2 w-[100%]"
-            />
+            <div id="password-container" class="flex flex-col gap-1 w-full">
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Enter your password"
+                required
+                class="border pl-2"
+              />
+              <ul id="default-list" class="hidden">
+                <li>At least 1 uppercase letter</li>
+                <li>At least 1 lowercase letter</li>
+                <li>At least 1 special character</li>
+                <li>At least 1 number</li>
+              </ul>
+            </div>
           </div>
           <div class="flex gap-1">
             <p>Have an account?</p>
