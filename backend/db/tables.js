@@ -19,7 +19,7 @@ class Tables {
         console.log(error.message);
         return;
       }
-      console.log("tabela criada");
+      console.log("a tabela já existe");
     });
   };
 }

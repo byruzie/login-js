@@ -50,7 +50,7 @@ import {
   createConditionList,
   updateConditionList,
   toggleDefaultConditionList,
-} from "./utils/characters.js";
+} from "./utils/passwordRules.js";
 
 const passwordEl = document.getElementById("password");
 const passwordDiv = document.getElementById("password-container");
@@ -99,9 +99,18 @@ passwordEl.addEventListener("click", () => {
 
 // esconde lista padrão ao clicar fora do input
 document.addEventListener("click", (e) => {
-  if (e.target.id !== "password" && !defaultListEl.classList.contains("hidden")) {
+  if (e.target.id !== "password" && e.target.id !== "toggle-password" && !defaultListEl.classList.contains("hidden")) {
     makeInvisible(defaultListEl);
   }
+});
+
+// password view
+const toggleIcon = document.getElementById("toggle-password");
+
+toggleIcon.addEventListener("click", () => {
+  const isPassword = passwordEl.type === "password";
+  passwordEl.type = isPassword ? "text" : "password";
+  toggleIcon.textContent = isPassword ? "visibility_off" : "visibility";
 });
 
 // form sign up
