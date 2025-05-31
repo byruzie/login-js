@@ -1,13 +1,20 @@
-// Função que ativa o display de um elemento e desativa o display de outro
-export function changeDiv(firstEl, secondEl) { 
-  const firstInactive = firstEl.classList.contains("inactive");
-  const secondInactive = secondEl.classList.contains("inactive");
+export function makeInvisible(element) {
+  element.classList.add("hidden");
+}
 
-  if (secondInactive) {
-    firstEl.classList.add("inactive");
-    secondEl.classList.remove("inactive");
-  } else if (firstInactive) {
-    secondEl.classList.add("inactive");
-    firstEl.classList.remove("inactive");
+export function makeVisible(element) {
+  element.classList.remove("hidden");
+}
+
+export function navegation(firstEl, secondEl) {
+  const firstHidden = firstEl.classList.contains("hidden");
+  const secondHidden = secondEl.classList.contains("hidden");
+
+  if (firstHidden) {
+    makeVisible(firstEl);
+    makeInvisible(secondEl);
+  } else if (secondHidden) {
+    makeVisible(secondEl);
+    makeInvisible(firstEl);
   }
 }

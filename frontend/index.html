@@ -3,72 +3,107 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
     <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
   <body>
-    <div class="container" id="container">
-      <div class="sign-in" id="sign-in">
-        <form action="" id="form-signin">
-          <div>
-              <label>Sign In</label>
-            </div>
-          <div>
-            <div>
+    <div class="flex flex-col justify-center items-center h-screen">
+      <div
+        id="welcome"
+        class="w-[314px] h-[214px] hidden flex justify-center items-center gap-1 border"
+      >
+        <p id="welcomeMessage"></p>
+      </div>
+      <div id="sign-in" class="w-[314px] h-[214px]">
+        <form id="loginForm" class="h-full flex flex-col gap-[25px] border p-2">
+          <label>Log In</label>
+          <div class="flex flex-col gap-2">
+            <div class="flex gap-2">
               <label for="">Email</label>
-              <input type="text" />
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                required
+                class="border pl-2 w-full"
+              />
             </div>
-            <div>
+            <div class="flex gap-2">
               <label for="">Password</label>
-              <input type="password" />
+              <input
+                type="password"
+                name="password"
+                placeholder="Enter your password"
+                required
+                class="border pl-2 w-full"
+              />
+            </div>
+            <div class="flex gap-1">
+              <p>Don't have an account?</p>
+              <a id="signin-link" class="underline cursor-pointer">Sign Up</a>
             </div>
           </div>
-          <div class="link">
-            <p>Don't have an account?</p>
-            <p id="signin-link">Sign Up</p>
-          </div>
-          <div>
-            <button type="submit" class="btn">Login</button>
-          </div>
+          <button type="submit" class="border">Sign In</button>
         </form>
       </div>
-      <div class="sign-up inactive" id="sign-up">
-        <form id="form-signup">
-          <div class="form-div" id="form-div">
-            <div>
-              <label>Sign Up</label>
-            </div>
-            <div>
-              <label for="">Email</label>
-              <input id="email" type="text" />
-            </div>
-            <div class="password-box">
-              <label for="">Password</label>
-              <div class="password-container" id="password-container">
-                <input id="password" type="password" />
-                <ul class="condition-list inactive" id="default-list">
-                  <li>At least 1 uppercase letter</li>
-                  <li>At least 1 lowercase letter</li>
-                  <li>At least 1 special character</li>
-                  <li>At least 1 number</li>
-                </ul>
+      <div id="sign-up" class="w-[314px] min-h-[214px] hidden">
+        <form id="signupForm" class="h-full flex flex-col gap-2 border p-2">
+          <label>Sign Up</label>
+          <div class="flex gap-2">
+            <label for="">Name</label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Enter your name"
+              required
+              class="border pl-2 w-full"
+            />
+          </div>
+          <div class="flex gap-2">
+            <label for="">Email</label>
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+              class="border pl-2 w-[100%]"
+            />
+          </div>
+          <div class="flex gap-2">
+            <label>Password</label>
+            <div id="password-container" class="flex flex-col gap-1">
+              <div class="flex items-center gap-1">
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="Enter your password"
+                  required
+                  class="border pl-2 w-full"
+                />
+                <span id="toggle-password" class="material-symbols-outlined cursor-pointer">visibility</span>
               </div>
+              <ul id="default-list" class="hidden">
+                <li>At least 1 uppercase letter</li>
+                <li>At least 1 lowercase letter</li>
+                <li>At least 1 special character</li>
+                <li>At least 1 number</li>
+              </ul>
             </div>
-            <div class="password-box">
-              <label for="">Confirm Password</label>
-              <input id="confirm-password" type="password" />
-            </div>
           </div>
-          <div class="link">
-            <p>Don't have an account?</p>
-            <p id="signup-link">Sign Up</p>
+          <div class="flex gap-1">
+            <p>Have an account?</p>
+            <a id="signup-link" class="underline cursor-pointer">Sign In</a>
           </div>
-          <div>
-            <button type="submit" class="btn">Sign Up</button>
-          </div>
+          <button type="submit" class="border">Sign Up</button>
         </form>
       </div>
     </div>
+    <script type="module" src="./script.js"></script>
   </body>
-  <script type="module" src="./script.js"></script>
 </html>
