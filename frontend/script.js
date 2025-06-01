@@ -53,7 +53,7 @@ import {
 } from "./utils/passwordRules.js";
 
 const passwordEl = document.getElementById("password");
-const passwordDiv = document.getElementById("password-container");
+const ulContainer = document.getElementById("ul-container");
 const defaultListEl = document.getElementById("default-list");
 
 const conditions = [
@@ -86,21 +86,21 @@ passwordEl.addEventListener("input", () => {
 
   if (!conditionList) {
     makeInvisible(defaultListEl);
-    createConditionList(passwordDiv, conditions);
+    createConditionList(ulContainer, conditions);
   }
 
-  updateConditionList(passwordDiv, validationResults);
+  updateConditionList(ulContainer, validationResults);
 });
 
 // mostra lista padrão ao clicar no input
 passwordEl.addEventListener("click", () => {
-  toggleDefaultConditionList(passwordEl, defaultListEl, conditions);
+  toggleDefaultConditionList(passwordEl, ulContainer, conditions);
 });
 
 // esconde lista padrão ao clicar fora do input
 document.addEventListener("click", (e) => {
-  if (e.target.id !== "password" && e.target.id !== "toggle-password" && !defaultListEl.classList.contains("hidden")) {
-    makeInvisible(defaultListEl);
+  if (e.target.id !== "password" && e.target.id !== "toggle-password" && !ulContainer.classList.contains("hidden")) {
+    makeInvisible(ulContainer);
   }
 });
 
