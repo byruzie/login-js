@@ -23,7 +23,7 @@ router.post("/login", async (req, res) => {
   try {
     const user = await userController.verifyLogin(email, password);
     if (!user) {
-      return res.status(401).json({ error: "Email ou senha incorretos." });
+      return res.status(401).json({ error: "Incorrect email or password." });
     }
 
     res.status(200).json({ message: "Login bem-sucedido", user });

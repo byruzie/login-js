@@ -44,7 +44,7 @@ formIn.addEventListener("submit", async (e) => {
   }
 });
 
-// password rules 
+// password rules
 import {
   validatePassword,
   createConditionList,
@@ -94,17 +94,35 @@ passwordSignup.addEventListener("input", () => {
 
 // mostra lista padrão ao clicar no input
 passwordSignup.addEventListener("click", () => {
-  const defaultInvisible = defaultListEl.classList.contains("hidden");
+  const passwordValue = passwordSignup.value;
+  const conditionList = document.getElementById("condition-list");
 
-  if(defaultInvisible) {
+  // se não tiver senha e nenhuma lista de condição, mostra a lista padrão
+  if (!passwordValue && !conditionList && defaultListEl.classList.contains("hidden")) {
+    makeVisible(defaultListEl);
     makeVisible(ulContainer);
   }
-  toggleDefaultConditionList(passwordSignup, ulContainer, conditions);
+
+  // se tiver senha, valida e mostra lista dinâmica
+  if (passwordValue) {
+    const validationResults = validatePassword(passwordValue, conditions);
+
+    if (!conditionList) {
+      createConditionList(ulContainer, conditions);
+    }
+
+    updateConditionList(ulContainer, validationResults);
+    makeVisible(ulContainer);
+  }
 });
 
 // esconde lista padrão ao clicar fora do input
 document.addEventListener("click", (e) => {
-  if (e.target.id !== "password-signup" && e.target.id !== "toggle-signup" && !ulContainer.classList.contains("hidden")) {
+  if (
+    e.target.id !== "password-signup" &&
+    e.target.id !== "toggle-signup" &&
+    !ulContainer.classList.contains("hidden")
+  ) {
     makeInvisible(ulContainer);
   }
 });
@@ -131,6 +149,14 @@ formUp.addEventListener("submit", async (e) => {
 
   const formData = new FormData(formUp);
   const user = Object.fromEntries(formData.entries()); // transforma os dados do form em objeto
+
+  const validationResults = validatePassword(user.password, conditions);
+  const allConditionsMet = validationResults.every((cond) => cond.matched);
+
+  if (!allConditionsMet) {
+    alert("The password must meet all the requirements.");
+    return; // impede o envio se ainda houver condições não atendidas
+  }
 
   try {
     const response = await fetch("http://localhost:3000/signup", {

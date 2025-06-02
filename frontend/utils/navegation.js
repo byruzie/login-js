@@ -6,15 +6,18 @@ export function makeVisible(element) {
   element.classList.remove("hidden");
 }
 
-export function navegation(firstEl, secondEl) {
-  const firstHidden = firstEl.classList.contains("hidden");
-  const secondHidden = secondEl.classList.contains("hidden");
+export function navegation(fromEl, toEl) {
+  makeInvisible(fromEl);
+  makeVisible(toEl);
 
-  if (firstHidden) {
-    makeVisible(firstEl);
-    makeInvisible(secondEl);
-  } else if (secondHidden) {
-    makeVisible(secondEl);
-    makeInvisible(firstEl);
-  }
+  // limpa todos os inputs do formulário visível e oculto
+  const forms = fromEl.querySelectorAll("form");
+  forms.forEach((form) => form.reset());
+
+  // limpa listas de validação de senha
+  const conditionList = document.getElementById("condition-list");
+  if (conditionList) conditionList.remove();
+
+  const defaultListEl = document.getElementById("default-list");
+  if (defaultListEl) defaultListEl.classList.add("hidden");
 }
