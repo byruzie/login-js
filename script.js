@@ -21,7 +21,7 @@ formIn.addEventListener("submit", async (e) => {
   const user = Object.fromEntries(formData.entries());
 
   try {
-    const response = await fetch("http://localhost:3000/login", {
+    const response = await fetch("https://login-js-tr60.onrender.com/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(user),
@@ -159,7 +159,7 @@ formUp.addEventListener("submit", async (e) => {
   }
 
   try {
-    const response = await fetch("http://localhost:3000/signup", {
+    const response = await fetch("https://login-js-tr60.onrender.com/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
