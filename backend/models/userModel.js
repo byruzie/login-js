@@ -1,32 +1,34 @@
 const connection = require("../db/connection");
 class UserModel {
   listUsers() {
-    const sql = "SELECT * FROM users";
-    return new Promise((resolve, reject) => {
-      connection.query(sql, {}, (error, response) => {
-        if (error) {
-          console.log("deu erro na lista de usuário");
-          reject(error);
-        }
-        console.log("a lista de usuário deu certo");
-        resolve(response);
-      });
+  const sql = "SELECT * FROM users";
+  return new Promise((resolve, reject) => {
+    connection.query(sql, {}, (error, response) => {
+      if (error) {
+        console.log("Erro na lista de usuários:", error.message);
+        return reject(error);
+      }
+
+      console.log("Lista de usuários obtida com sucesso");
+      resolve(response);
     });
-  }
+  });
+}
 
   createUser(newUser) {
-    const sql = "INSERT INTO users SET ?";
-    return new Promise((resolve, reject) => {
-      connection.query(sql, newUser, (error, response) => {
-        if (error) {
-          console.log("deu erro na criação de usuário");
-          reject(error);
-        }
-        console.log("a criação de usuário deu certo");
-        resolve(response);
-      });
+  const sql = "INSERT INTO users SET ?";
+  return new Promise((resolve, reject) => {
+    connection.query(sql, newUser, (error, response) => {
+      if (error) {
+        console.log("Erro na criação de usuário:", error.message);
+        return reject(error);
+      }
+
+      console.log("Usuário criado com sucesso");
+      resolve(response);
     });
-  }
+  });
+}
 
   verifyCredentials(email, password) {
     const sql = "SELECT * FROM users WHERE email = ?";
