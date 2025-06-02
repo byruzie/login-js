@@ -1,1 +1,0 @@
-Senhas nunca devem ser salvas em texto puro. Em produção, use hash com bcrypt. Posso te mostrar como aplicar isso depois.
