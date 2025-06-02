@@ -52,7 +52,7 @@ import {
   toggleDefaultConditionList,
 } from "./utils/passwordRules.js";
 
-const passwordEl = document.getElementById("password");
+const passwordSignup = document.getElementById("password-signup");
 const ulContainer = document.getElementById("ul-container");
 const defaultListEl = document.getElementById("default-list");
 
@@ -80,37 +80,47 @@ const conditions = [
 ];
 
 // ativa/atualiza lista quando digita
-passwordEl.addEventListener("input", () => {
+passwordSignup.addEventListener("input", () => {
   const conditionList = document.getElementById("condition-list");
-  const validationResults = validatePassword(passwordEl.value, conditions);
+  const validationResults = validatePassword(passwordSignup.value, conditions);
 
   if (!conditionList) {
-    makeInvisible(defaultListEl);
     createConditionList(ulContainer, conditions);
+    makeInvisible(defaultListEl);
   }
-
   updateConditionList(ulContainer, validationResults);
+  makeVisible(ulContainer);
 });
 
 // mostra lista padrão ao clicar no input
-passwordEl.addEventListener("click", () => {
-  toggleDefaultConditionList(passwordEl, ulContainer, conditions);
+passwordSignup.addEventListener("click", () => {
+  const defaultInvisible = defaultListEl.classList.contains("hidden");
+
+  if(defaultInvisible) {
+    makeVisible(ulContainer);
+  }
+  toggleDefaultConditionList(passwordSignup, ulContainer, conditions);
 });
 
 // esconde lista padrão ao clicar fora do input
 document.addEventListener("click", (e) => {
-  if (e.target.id !== "password" && e.target.id !== "toggle-password" && !ulContainer.classList.contains("hidden")) {
+  if (e.target.id !== "password-signup" && e.target.id !== "toggle-signup" && !ulContainer.classList.contains("hidden")) {
     makeInvisible(ulContainer);
   }
 });
 
 // password view
-const toggleIcon = document.getElementById("toggle-password");
+import { toggleIcon } from "./utils/toggleIcon.js";
 
-toggleIcon.addEventListener("click", () => {
-  const isPassword = passwordEl.type === "password";
-  passwordEl.type = isPassword ? "text" : "password";
-  toggleIcon.textContent = isPassword ? "visibility_off" : "visibility";
+const passwordLogin = document.getElementById("password-login");
+const iconLogin = document.getElementById("toggle-login");
+const iconSignup = document.getElementById("toggle-signup");
+
+iconLogin.addEventListener("click", () => {
+  toggleIcon(passwordLogin, iconLogin);
+});
+iconSignup.addEventListener("click", () => {
+  toggleIcon(passwordSignup, iconSignup);
 });
 
 // form sign up
