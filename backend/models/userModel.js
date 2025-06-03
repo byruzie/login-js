@@ -3,56 +3,32 @@ const bcrypt = require("bcrypt");
 
 class UserModel {
   listUsers() {
-    const sql = "SELECT * FROM users";
-    return new Promise((resolve, reject) => {
-      connection.query(sql, (error, response) => {
-        if (error) {
-          console.log("Erro na lista de usuários:", error.message);
-          return reject(error);
-        }
-
-        console.log("Lista de usuários obtida com sucesso");
-        resolve(response.rows); // .rows é padrão no pg
-      });
-    });
+    const sql = "SELECT id, nome, email FROM users";
+    return connection.query(sql).then(res => res.rows);
   }
 
-  createUser(newUser) {
-    const sql =
-      "INSERT INTO users (nome, email, senha) VALUES ($1, $2, $3) RETURNING *";
-    const values = [newUser.name, newUser.email, newUser.password];
-
-    return new Promise((resolve, reject) => {
-      connection.query(sql, values, (error, response) => {
-        if (error) {
-          console.log("Erro na criação de usuário:", error.message);
-          return reject(error);
-        }
-
-        console.log("Usuário criado com sucesso");
-        resolve(response.rows[0]); // retorna o novo usuário criado
-      });
-    });
+  async createUser(newUser) {
+    const hashedPassword = await bcrypt.hash(newUser.password, 10);
+    const sql = "INSERT INTO users (nome, email, senha) VALUES ($1, $2, $3) RETURNING id, nome, email";
+    const values = [newUser.name, newUser.email, hashedPassword];
+    const res = await connection.query(sql, values);
+    return res.rows[0];
   }
 
   async verifyCredentials(email, password) {
     const sql = "SELECT * FROM users WHERE email = $1";
+    const res = await connection.query(sql, [email]);
 
-    try {
-      const results = await connection.query(sql, [email]);
+    if (res.rows.length === 0) return null;
 
-      if (results.rows.length === 0) return null;
+    const user = res.rows[0];
+    const match = await bcrypt.compare(password, user.senha);
+    if (!match) return null;
 
-      const user = results.rows[0];
-
-      const match = await bcrypt.compare(password, user.password);
-      if (match) return user;
-      return null;
-    } catch (err) {
-      console.error("Erro verifyCredentials:", err);
-      throw err;
-    }
+    // Retorna apenas os dados públicos
+    return { id: user.id, name: user.nome, email: user.email };
   }
 }
 
 module.exports = new UserModel();
+
