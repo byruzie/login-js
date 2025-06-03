@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const port = process.env.PORT || 3000;
 
 const router = require("./routes/index");
 const connection = require("./db/connection");
@@ -15,10 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 tables.init(connection);
 router(app);
 
-app.listen(port, (error) => {
-    if(error) {
-        console.log('deu erro');
-        return
-    }
-    console.log(`Servidor rodando em http://localhost:${port}`);
-})
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
+});
