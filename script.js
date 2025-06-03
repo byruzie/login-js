@@ -35,7 +35,7 @@ formIn.addEventListener("submit", async (e) => {
       // mostra a div de boas-vindas
       makeVisible(welcomeEl);
       // atualiza a div de boas-vindas
-      welcomeMessage.innerText = `Welcome, ${result.user.name}!`;
+      welcomeMessage.innerText = `Welcome, ${result.user.nome}!`;
     } else {
       alert("Email ou senha incorretos.");
     }
@@ -150,7 +150,7 @@ formUp.addEventListener("submit", async (e) => {
   const formData = new FormData(formUp);
   const user = Object.fromEntries(formData.entries()); // transforma os dados do form em objeto
 
-  const validationResults = validatePassword(user.password, conditions);
+  const validationResults = validatePassword(user.senha, conditions);
   const allConditionsMet = validationResults.every((cond) => cond.matched);
 
   if (!allConditionsMet) {
