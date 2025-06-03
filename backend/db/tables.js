@@ -1,27 +1,28 @@
 class Tables {
-  init(connection) {
-    this.connection = connection;
-    this.createTable();
+  async init(pool) {
+    this.pool = pool;
+    await this.createTable();
   }
 
-  createTable() {
+  async createTable() {
     const sql = `
-            CREATE TABLE IF NOT EXISTS users (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            nome VARCHAR(100) NOT NULL,
-            email VARCHAR(100) NOT NULL UNIQUE,
-            senha VARCHAR(255) NOT NULL
-            );
-        `;
-    this.connection.query(sql, (error) => {
-      if (error) {
-        console.log("erro na hora de criar tabela");
-        console.log(error.message);
-        return;
-      }
-      console.log("a tabela já existe");
-    });
-  };
+      CREATE TABLE IF NOT EXISTS users (
+        id SERIAL PRIMARY KEY,
+        nome VARCHAR(100) NOT NULL,
+        email VARCHAR(100) NOT NULL UNIQUE,
+        senha VARCHAR(255) NOT NULL
+      )
+    `;
+
+    try {
+      await this.pool.query(sql);
+      console.log("A tabela 'users' já existe ou foi criada com sucesso.");
+    } catch (error) {
+      console.error("Erro ao criar tabela:");
+      console.error(error.message);
+    }
+  }
 }
 
 module.exports = new Tables();
+

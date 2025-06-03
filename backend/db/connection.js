@@ -1,12 +1,11 @@
-const mysql = require("mysql2");
 require('dotenv').config();
+const { Pool } = require("pg");
 
-const connection = mysql.createConnection({
-  host: process.env.MYSQLHOST,
-  port: process.env.MYSQLPORT,
-  user: process.env.MYSQLUSER,
-  password: process.env.MYSQLPASSWORD,
-  database: process.env.MYSQLDATABASE
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
-module.exports = connection;
+module.exports = pool;
