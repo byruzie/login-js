@@ -1,4 +1,5 @@
 const connection = require("../db/connection");
+const bcrypt = require("bcrypt");
 
 class UserModel {
   listUsers() {
@@ -17,7 +18,8 @@ class UserModel {
   }
 
   createUser(newUser) {
-    const sql = "INSERT INTO users (nome, email, senha) VALUES ($1, $2, $3) RETURNING *";
+    const sql =
+      "INSERT INTO users (nome, email, senha) VALUES ($1, $2, $3) RETURNING *";
     const values = [newUser.name, newUser.email, newUser.password];
 
     return new Promise((resolve, reject) => {
@@ -36,20 +38,27 @@ class UserModel {
   verifyCredentials(email, password) {
     const sql = "SELECT * FROM users WHERE email = $1";
 
-    return new Promise((resolve, reject) => {
-      connection.query(sql, [email], (err, results) => {
-        if (err) return reject(err);
+    return new Promise(async (resolve, reject) => {
+      try {
+        const results = await connection.query(sql, [email]);
 
-        if (results.rows.length === 0) return resolve(null); // usuário não encontrado
+        if (results.rows.length === 0) {
+          return resolve(null); // usuário não encontrado
+        }
 
         const user = results.rows[0];
 
-        if (user.password === password) {
-          resolve(user);
+        // compara a senha enviada com a senha hash armazenada
+        const senhaCorreta = await bcrypt.compare(password, user.password);
+
+        if (senhaCorreta) {
+          resolve(user); // senha correta, retorna o usuário
         } else {
           resolve(null); // senha incorreta
         }
-      });
+      } catch (err) {
+        reject(err);
+      }
     });
   }
 }
