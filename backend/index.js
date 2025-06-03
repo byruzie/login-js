@@ -1,18 +1,20 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const connection = require("./db/connection");
-const tables = require("./db/tables");
-const userRoutes = require("./routes/userRoutes");
 
+// Configura CORS para aceitar requisições do seu frontend
 app.use(cors({
-  origin: "https://byruzie.github.io"
+  origin: "https://byruzie.github.io",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
+// Para garantir que o servidor responda ao preflight OPTIONS
+app.options("*", cors());
+
 app.use(express.json());
 
-tables.init(connection);
-
-app.use("/api/users", userRoutes);
+// suas rotas aqui
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
