@@ -24,7 +24,7 @@ formIn.addEventListener("submit", async (e) => {
     const response = await fetch("https://login-js-production.up.railway.app/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(user),
+      body: JSON.stringify({ email, password }),
     });
 
     const result = await response.json();
