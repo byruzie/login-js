@@ -5,7 +5,9 @@ const connection = require("./db/connection");
 const tables = require("./db/tables");
 const userRoutes = require("./routes/userRoutes");
 
-app.use(cors());
+app.use(cors({
+  origin: "https://byruzie.github.io"
+}));
 app.use(express.json());
 
 tables.init(connection);
