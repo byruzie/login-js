@@ -1,44 +1,48 @@
 const connection = require("../db/connection");
+
 class UserModel {
   listUsers() {
-  const sql = "SELECT * FROM users";
-  return new Promise((resolve, reject) => {
-    connection.query(sql, {}, (error, response) => {
-      if (error) {
-        console.log("Erro na lista de usuários:", error.message);
-        return reject(error);
-      }
+    const sql = "SELECT * FROM users";
+    return new Promise((resolve, reject) => {
+      connection.query(sql, (error, response) => {
+        if (error) {
+          console.log("Erro na lista de usuários:", error.message);
+          return reject(error);
+        }
 
-      console.log("Lista de usuários obtida com sucesso");
-      resolve(response);
+        console.log("Lista de usuários obtida com sucesso");
+        resolve(response.rows); // .rows é padrão no pg
+      });
     });
-  });
-}
+  }
 
   createUser(newUser) {
-  const sql = "INSERT INTO users SET ?";
-  return new Promise((resolve, reject) => {
-    connection.query(sql, newUser, (error, response) => {
-      if (error) {
-        console.log("Erro na criação de usuário:", error.message);
-        return reject(error);
-      }
+    const sql = "INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *";
+    const values = [newUser.name, newUser.email, newUser.password];
 
-      console.log("Usuário criado com sucesso");
-      resolve(response);
+    return new Promise((resolve, reject) => {
+      connection.query(sql, values, (error, response) => {
+        if (error) {
+          console.log("Erro na criação de usuário:", error.message);
+          return reject(error);
+        }
+
+        console.log("Usuário criado com sucesso");
+        resolve(response.rows[0]); // retorna o novo usuário criado
+      });
     });
-  });
-}
+  }
 
   verifyCredentials(email, password) {
-    const sql = "SELECT * FROM users WHERE email = ?";
+    const sql = "SELECT * FROM users WHERE email = $1";
+
     return new Promise((resolve, reject) => {
       connection.query(sql, [email], (err, results) => {
         if (err) return reject(err);
 
-        if (results.length === 0) return resolve(null); // usuário não encontrado
+        if (results.rows.length === 0) return resolve(null); // usuário não encontrado
 
-        const user = results[0];
+        const user = results.rows[0];
 
         if (user.password === password) {
           resolve(user);
