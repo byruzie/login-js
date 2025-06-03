@@ -35,31 +35,23 @@ class UserModel {
     });
   }
 
-  verifyCredentials(email, password) {
+  async verifyCredentials(email, password) {
     const sql = "SELECT * FROM users WHERE email = $1";
 
-    return new Promise(async (resolve, reject) => {
-      try {
-        const results = await connection.query(sql, [email]);
+    try {
+      const results = await connection.query(sql, [email]);
 
-        if (results.rows.length === 0) {
-          return resolve(null); // usuário não encontrado
-        }
+      if (results.rows.length === 0) return null;
 
-        const user = results.rows[0];
+      const user = results.rows[0];
 
-        // compara a senha enviada com a senha hash armazenada
-        const senhaCorreta = await bcrypt.compare(password, user.password);
-
-        if (senhaCorreta) {
-          resolve(user); // senha correta, retorna o usuário
-        } else {
-          resolve(null); // senha incorreta
-        }
-      } catch (err) {
-        reject(err);
-      }
-    });
+      const match = await bcrypt.compare(password, user.password);
+      if (match) return user;
+      return null;
+    } catch (err) {
+      console.error("Erro verifyCredentials:", err);
+      throw err;
+    }
   }
 }
 
