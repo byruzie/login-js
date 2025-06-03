@@ -7,7 +7,9 @@ const connection = require("./db/connection");
 const tables = require("./db/tables");
 
 // Middlewares
-app.use(cors());
+app.use(cors({
+  origin: "https://byruzie.github.io",
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
