@@ -17,7 +17,7 @@ class UserModel {
   }
 
   createUser(newUser) {
-    const sql = "INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *";
+    const sql = "INSERT INTO users (nome, email, senha) VALUES ($1, $2, $3) RETURNING *";
     const values = [newUser.name, newUser.email, newUser.password];
 
     return new Promise((resolve, reject) => {
