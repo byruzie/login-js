@@ -30,6 +30,7 @@ Acesse o projeto online:
 - PostgreSQL
 - Render (banco de dados)
 - Railway (backend)
+- Postman (para testes de API)
 
 
 ---
@@ -42,6 +43,7 @@ Acesse o projeto online:
 - Deploy de aplicações fullstack, aprendendo a integrar hospedagem de banco (Render) com servidor (Railway).
 - Tailwind na prática, aplicando utilitários para criar uma interface clara, moderna e adaptável a diferentes tamanhos de tela.
 - Manipulação e validação de formulários, feedback visual em tempo real e mensagens de erro amigáveis.
+- Uso do Postman para testar rotas, validar respostas da API e simular fluxos de autenticação.
 
 ---
 
